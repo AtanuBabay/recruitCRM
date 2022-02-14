@@ -6,6 +6,8 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
+import pageObject.homePage;
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.openqa.selenium.By;
@@ -15,24 +17,34 @@ import org.testng.annotations.AfterMethod;
 
 public class InvokeBrowser {
 	
-	WebDriver driver;
+	public WebDriver driver;
 	ExtentReports extent;
+	homePage home ;
 	 @BeforeMethod
 	  public void beforeMethod() {
 		 String path = System.getProperty("user.dir") + "\\Driver\\chromedriver.exe";
 		 System.setProperty("webdriver.chrome.driver",path);
-		 
 		 driver = new ChromeDriver();
+		 driver.manage().window().maximize();
+		 driver.get("https://recruitcrm.io/");
 	  }
 	
 	 @Test
-	 public void invoke() {
-		ExtentTest test=extent.createTest("RecruitCRM Demo");
-		driver.manage().window().maximize();
-		driver.get("https://recruitcrm.io/");
-		driver.findElement(By.xpath("//a[text()[contains(.,'Sign in')]]")).click();
+	 public void validateLandingPage() {
+		ExtentTest test=extent.createTest("Uase can vallidate Landing Page");
+		home.validateLanding();
 		extent.flush();
 	  }
+	 @Test
+	 public void loginPage() {
+		 extent.createTest("User able to login sucessfully");
+		 home.Login("testaccount@mailinator.com","Passowrd@123");
+		 extent.flush();
+	 }
+	 @Test
+	 public void tcs() {
+		 
+	 }
  
 	 @BeforeTest
 		public void config() {

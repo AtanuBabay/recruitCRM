@@ -5,9 +5,11 @@
     <classes>
       <class name="TestRunner.InvokeBrowser">
         <methods>
-          <include name="reportConfig"/>
           <include name="beforeMethod"/>
-          <include name="invoke"/>
+          <include name="validateLandingPage"/>
+          <include name="config"/>
+          <include name="loginPage"/>
+          <include name="afterMethod"/>
         </methods>
       </class> <!-- TestRunner.InvokeBrowser -->
     </classes>
