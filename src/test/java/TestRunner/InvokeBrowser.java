@@ -42,14 +42,7 @@ public class InvokeBrowser{
 	 
 	 @Test
 	 public void loginPage() throws InterruptedException {
-		 extent.createTest("User able to login sucessfully");
-		 homePage = new homePage(driver);
-		 homePage.Login("testaccount@mailinator.com","Passowrd@123");
-		 extent.flush();
-	 }
-	 @Test
-	 public void validateLoginPage() throws InterruptedException {
-		 extent.createTest("User able to login sucessfully");
+		 extent.createTest("User Login");
 		 homePage = new homePage(driver);
 		 homePage.Login("testaccount@mailinator.com","Passowrd@123");
 		 extent.flush();
@@ -57,46 +50,61 @@ public class InvokeBrowser{
 	 
 	 @Test
 	 public void addCandidate() throws InterruptedException {
-		 extent.createTest("User able to login sucessfully");
+		 extent.createTest("Add Candidate");
 		 homePage = new homePage(driver);
 		 homePage.Login("testaccount@mailinator.com","Passowrd@123");
+		 homePage.addCandidate("Atanu", "Sarkar", "candidate1@mailinator.com");
+		 extent.flush();
+	 }
+	 
+	 @Test
+	 public void searchUser() throws InterruptedException {
+		 extent.createTest("Search User");
+		 homePage = new homePage(driver);
+		 homePage.Login("testaccount@mailinator.com","Passowrd@123");
+		 homePage.searchCandidate("Atanu");
 		 extent.flush();
 	 }
 	 
 	 @Test
 	 public void deleteCandidate() throws InterruptedException {
-		 extent.createTest("User able to login sucessfully");
+		 extent.createTest("Delete User");
 		 homePage = new homePage(driver);
 		 homePage.Login("testaccount@mailinator.com","Passowrd@123");
+		 homePage.deleteUser();
 		 extent.flush();
 	 }
 	 @Test
 	 public void addCompany() throws InterruptedException {
-		 extent.createTest("User able to login sucessfully");
+		 extent.createTest("Add Company");
 		 homePage = new homePage(driver);
 		 homePage.Login("testaccount@mailinator.com","Passowrd@123");
+		 homePage.addCompany("Recruit Technology", "Information technology", "xyz.com");
 		 extent.flush();
 	 }
 	 @Test
 	 public void deleteCompany() throws InterruptedException {
-		 extent.createTest("User able to login sucessfully");
+		 extent.createTest("Delete Company");
 		 homePage = new homePage(driver);
 		 homePage.Login("testaccount@mailinator.com","Passowrd@123");
+		 homePage.deleteComp();
 		 extent.flush();
 	 }
 	 
 	 @Test
 	 public void importCandidate() throws InterruptedException {
-		 extent.createTest("User able to login sucessfully");
+		 extent.createTest("import Candidate");
 		 homePage = new homePage(driver);
 		 homePage.Login("testaccount@mailinator.com","Passowrd@123");
+		 homePage.candImport();
 		 extent.flush();
 	 }
 	 @Test
 	 public void viewReport() throws InterruptedException {
-		 extent.createTest("User able to login sucessfully");
+		 extent.createTest("View Report");
 		 homePage = new homePage(driver);
 		 homePage.Login("testaccount@mailinator.com","Passowrd@123");
+		 homePage.viewReport();
 		 extent.flush();
 	 }
 	 @BeforeTest

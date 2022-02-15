@@ -7,7 +7,7 @@
         <methods>
           <include name="beforeMethod"/>
           <include name="config"/>
-          <include name="loginPage"/>
+          <include name="deleteCandidate"/>
           <include name="afterMethod"/>
         </methods>
       </class> <!-- TestRunner.InvokeBrowser -->
