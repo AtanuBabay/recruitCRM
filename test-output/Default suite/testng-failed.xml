@@ -6,7 +6,6 @@
       <class name="TestRunner.InvokeBrowser">
         <methods>
           <include name="beforeMethod"/>
-          <include name="validateLandingPage"/>
           <include name="config"/>
           <include name="loginPage"/>
           <include name="afterMethod"/>

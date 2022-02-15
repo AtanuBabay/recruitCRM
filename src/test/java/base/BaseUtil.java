@@ -17,93 +17,44 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+
+import pageObject.homePage;
 
 public class BaseUtil {
 	public WebDriver driver;
 	
-	public void excelInput() throws IOException {
-		FileInputStream fis = new FileInputStream(
-		new File(System.getProperty("user.home") + "\\InputData\\demodata.xlsx"));
-		//FileInputStream fis = new FileInputStream("user.dir") + 
-		XSSFWorkbook workbook =new XSSFWorkbook(fis);
-		
-		int sheets = workbook.getNumberOfSheets();
-		for(int i=0;i<sheets;i++) {
-			XSSFSheet sheet = workbook.getSheetAt(i);
+	public BaseUtil(WebDriver driver) {
+		// TODO Auto-generated constructor stub
+		this.driver=driver;
+		PageFactory.initElements(driver, this);
+	}
+
+	public String returnvaluefromexcel(String parameter) throws Exception {
+		File inputFile = new File(System.getProperty("user.dir") + "\\InputData\\demodata.xlsx");
+		FileInputStream fis = new FileInputStream(inputFile);
+		XSSFWorkbook inputWorkbook = new XSSFWorkbook(fis);
+		XSSFSheet inputSheet = inputWorkbook.getSheetAt(0);
+		//String inputSheetName = inputWorkbook.getSheetName(0);
+		int rowCount = inputSheet.getPhysicalNumberOfRows();
+		System.out.println("out");
+		String cellData = null;
+		System.out.println(rowCount + " rows in inputsheet " + inputSheet.getSheetName());
+		for (int row = 0; row <= rowCount - 1; row++) {
+		cellData = inputSheet.getRow(row).getCell(0).getStringCellValue().toString();
+		if (cellData.equalsIgnoreCase(parameter)) {
+		String value = inputSheet.getRow(row).getCell(1).getStringCellValue().toString();
+		return value;
 		}
-	}
-	public ArrayList<String> getData(String testcaseName) throws IOException
-	{
-	//fileInputStream argument
-	ArrayList<String> a=new ArrayList<String>();
-
-	FileInputStream fis = new FileInputStream(
-	new File(System.getProperty("user.home") + "\\InputData\\demodata.xlsx"));
-	XSSFWorkbook workbook=new XSSFWorkbook(fis);
-
-	int sheets=workbook.getNumberOfSheets();
-	for(int i=0;i<sheets;i++)
-	{
-	if(workbook.getSheetName(i).equalsIgnoreCase("testdata"))
-	{
-	XSSFSheet sheet=workbook.getSheetAt(i);
-	//Identify Testcases coloum by scanning the entire 1st row
-
-	Iterator<Row>  rows= sheet.iterator();// sheet is collection of rows
-	Row firstrow= rows.next();
-	Iterator<Cell> ce=firstrow.cellIterator();//row is collection of cells
-	int k=0;
-	int coloumn = 0;
-	while(ce.hasNext())
-	{
-	Cell value=ce.next();
-
-	if(value.getStringCellValue().equalsIgnoreCase("TestCases"))
-	{
-	coloumn=k;
-
-	}
-
-	k++;
-	}
-	System.out.println(coloumn);
-
-	////once coloumn is identified then scan entire testcase coloum to identify purcjhase testcase row
-	while(rows.hasNext())
-	{
-
-	Row r=rows.next();
-
-	if(r.getCell(coloumn).getStringCellValue().equalsIgnoreCase(testcaseName))
-	{
-
-	////after you grab purchase testcase row = pull all the data of that row and feed into test
-
-	Iterator<Cell>  cv=r.cellIterator();
-	while(cv.hasNext())
-	{
-	Cell c= cv.next();
-	if(c.getCellType()==CellType.STRING)
-	{
-
-	a.add(c.getStringCellValue());
-	}
-	else{
-
-	a.add(NumberToTextConverter.toText(c.getNumericCellValue()));
-
-	}
-	}
-	}
-
-	}
-
-
-	}
-	}
-	return a;
-
-	}
-
+		}
+		return "no match";
+		}
+	
+	public void SelectDropDownByVisibleText(WebElement element, String text)throws Exception {
+		//waitForWebElement(driver,element);
+		Select select = new Select(element);
+		select.selectByVisibleText(text);
+		}
 }
